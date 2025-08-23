@@ -58,7 +58,13 @@ export default defineConfig({
       // "Cross-Origin-Opener-Policy": "same-origin",
       // "Cross-Origin-Embedder-Policy": "require-corp",
       //배포때는 아래거 쓰면 절대 안됨
-      "Cross-Origin-Opener-Policy": "unsafe-none",
+      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+      "Cross-Origin-Embedder-Policy": "unsafe-none",
+    },
+  },
+  preview: {
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
       "Cross-Origin-Embedder-Policy": "unsafe-none",
     },
   },
