@@ -3,8 +3,13 @@ import {
   GoogleOAuthProvider,
 } from "@react-oauth/google";
 import axios from "axios";
+import { authStore } from "../store/AuthStore";
+import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const Login = () => {
+  const { setUserEmail } = authStore();
+  const navigate = useNavigate();
+
   const sendIdToken = async (idToken: string) => {
     try {
       const res = await axios.post(
@@ -19,9 +24,11 @@ const LoginPage = () => {
 
       const accessToken = res.data.data?.jwt;
 
+      setUserEmail(res.data.data.email);
+
       localStorage.setItem("accessToken", accessToken);
-      console.log("🔥 accessToken 저장됨:", accessToken);
-      window.location.href = "/login/success";
+
+      navigate("/login/success");
     } catch (err) {
       console.error("로그인 실패:", err);
     }
@@ -43,4 +50,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -1,5 +1,6 @@
 // src/features/records/components/FilterBar.tsx
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { CategoryOption } from "../pages/RecordListPage";
 
 export type ListFilters = {
   categoryId?: string;
@@ -11,8 +12,6 @@ export type ListFilters = {
   page?: number;
   size?: number;
 };
-
-type CategoryOption = { id: string | number; name: string };
 
 type Props = {
   value: ListFilters;
@@ -84,8 +83,8 @@ export default function FilterBar({
           >
             <option value="">전체 카테고리</option>
             {categories.map((c) => (
-              <option key={c.id} value={String(c.id)}>
-                {c.name}
+              <option key={c.categoryId} value={c.categoryId}>
+                {c.categoryName}
               </option>
             ))}
           </select>
