@@ -75,6 +75,10 @@ function normalizePage(raw: any): PageResp<RecordItem> {
 
 export async function fetchRecords(params: ListFilters) {
   const res = await api.get("/record/user/1", { params });
-  // console.log("GET /record/user/1 ->", res.data);
   return normalizePage(res.data);
+}
+
+export async function fetchCategories() {
+  const res = await api.get("/category/user/1");
+  return res.data.data;
 }

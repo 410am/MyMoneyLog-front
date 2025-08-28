@@ -1,7 +1,12 @@
 // src/features/records/pages/RecordListPage.tsx
 import { useEffect, useState } from "react";
 import { useListFilters } from "../hooks/useListFilters";
-import { fetchRecords, type PageResp, type RecordItem } from "../api";
+import {
+  fetchCategories,
+  fetchRecords,
+  type PageResp,
+  type RecordItem,
+} from "../api";
 import FilterBar from "../components/FilterBar";
 import { authStore } from "../store/AuthStore";
 
@@ -12,7 +17,8 @@ export default function RecordListPage() {
   const [data, setData] = useState<PageResp<RecordItem> | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const email = authStore((state) => state.email);
+  // const email = authStore((state) => state.email);
+  const userId = authStore((state) => state.userId);
 
   useEffect(() => {
     let cancel = false;
@@ -35,19 +41,53 @@ export default function RecordListPage() {
 
   const list = data?.content ?? [];
 
+  useEffect(() => {
+    let cancel = false;
+    (async () => {
+      try {
+        setLoading(true);
+        setErr(null);
+        const res = await fetchCategories();
+        console.log(res);
+        if (!cancel) {
+          const uniq: CategoryOption[] = Array.from(
+            new Map<number, CategoryOption>(
+              res.map((c: CategoryOption) => [
+                c.categoryId,
+                {
+                  categoryId: Number(c.categoryId),
+                  categoryName: c.categoryName,
+                },
+              ])
+            ).values()
+          );
+          console.log(uniq);
+          setCategoryList(uniq);
+        }
+      } catch (e: any) {
+        if (!cancel) setErr(e?.message ?? "failed");
+      } finally {
+        if (!cancel) setLoading(false);
+      }
+    })();
+    return () => {
+      cancel = true;
+    };
+  }, [userId]);
+
   const [categoryList, setCategoryList] = useState<CategoryOption[]>([]);
 
-  useEffect(() => {
-    const uniq = Array.from(
-      new Map(
-        list.map((r) => [
-          r.categoryId,
-          { categoryId: Number(r.categoryId), categoryName: r.categoryName },
-        ])
-      ).values()
-    );
-    setCategoryList(uniq);
-  }, [list]); // todo : list로 의존성 해놓으니까 카테고리 다시 선택할 때 문제생김 아예 백에서 카테고리리스트 받아와야될듯
+  // useEffect(() => {
+  //   const uniq = Array.from(
+  //     new Map(
+  //       list.map((r) => [
+  //         r.categoryId,
+  //         { categoryId: Number(r.categoryId), categoryName: r.categoryName },
+  //       ])
+  //     ).values()
+  //   );
+  //   setCategoryList(uniq);
+  // }, [list]); // todo : list로 의존성 해놓으니까 카테고리 다시 선택할 때 문제생김 아예 백에서 카테고리리스트 받아와야될듯
 
   return (
     <div className="max-w-3xl mx-auto p-4 space-y-4">
