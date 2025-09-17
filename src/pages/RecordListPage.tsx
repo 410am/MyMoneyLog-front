@@ -48,7 +48,6 @@ export default function RecordListPage() {
         setLoading(true);
         setErr(null);
         const res = await fetchCategories();
-        console.log(res);
         if (!cancel) {
           const uniq: CategoryOption[] = Array.from(
             new Map<number, CategoryOption>(
@@ -61,7 +60,6 @@ export default function RecordListPage() {
               ])
             ).values()
           );
-          console.log(uniq);
           setCategoryList(uniq);
         }
       } catch (e: any) {
