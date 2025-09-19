@@ -261,11 +261,11 @@ api.interceptors.response.use(
 );
 
 export async function fetchRecords(params: ListFilters) {
-  const res = await api.get("/record/user/1", { params });
+  const res = await api.get("/record/user/me", { params });
   return normalizePage(res.data);
 }
 
 export async function fetchCategories() {
-  const res = await api.get("/category/user/1");
+  const res = await api.get("/category/user/me");
   return res.data.data;
 }
