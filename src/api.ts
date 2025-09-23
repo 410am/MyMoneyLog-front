@@ -269,3 +269,8 @@ export async function fetchCategories() {
   const res = await api.get("/category/user/me");
   return res.data.data;
 }
+
+export async function fetchUser() {
+  const res = await api.get("/user/me");
+  return res.data.data;
+}

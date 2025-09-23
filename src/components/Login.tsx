@@ -7,7 +7,6 @@ import { authStore } from "../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { setUserEmail } = authStore();
   const navigate = useNavigate();
 
   const sendIdToken = async (idToken: string) => {
@@ -24,7 +23,7 @@ const Login = () => {
 
       const accessToken = res.data.data?.jwt;
 
-      setUserEmail(res.data.data.email);
+      authStore.getState().setAuth(res.data.data);
 
       localStorage.setItem("accessToken", accessToken);
 
