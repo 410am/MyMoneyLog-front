@@ -292,3 +292,7 @@ export async function updateUser(newUser: {
   const res = await api.post("/user/me", newUser);
   return res.data.data;
 }
+
+export async function logout() {
+  await api.post("/auth/logout", {}, { withCredentials: true });
+}

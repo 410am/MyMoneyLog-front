@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { updateUser } from "../api";
+import { logout, updateUser } from "../api";
 import { authStore } from "../store/AuthStore";
 import { toast } from "react-toastify";
-
-// 로그아웃 시 초기화
-// authStore.getState().clearAuth();
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
   // const token = localStorage.getItem("accessToken");
@@ -13,6 +11,8 @@ const MyPage = () => {
   // const userId = authStore((state) => state.userId);
   // const picture = authStore((state) => state.picture);
   const { userId, email, nickname, picture } = authStore();
+
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (!token) return;
@@ -47,6 +47,20 @@ const MyPage = () => {
     }
   };
 
+  const handleLogout = async () => {
+    // 서버에 로그아웃 요청 (refreshToken 만료)
+    await logout();
+
+    // localStorage에서 accessToken 제거
+    localStorage.removeItem("accessToken");
+
+    // Zustand 상태 초기화
+    authStore.getState().clearAuth();
+
+    // 로그아웃 후 홈으로 리다이렉트
+    navigate("/");
+  };
+
   return (
     <div>
       MyPage
@@ -74,8 +88,11 @@ const MyPage = () => {
             onChange={(e) => setNewPicture(e.target.value)}
           />
         </div>
+        <button onClick={handleSave}>저장하기</button>
       </div>
-      <button onClick={handleSave}>저장하기</button>
+      <div>
+        <button onClick={handleLogout}>로그아웃</button>
+      </div>
     </div>
   );
 };
