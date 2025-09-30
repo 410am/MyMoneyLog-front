@@ -138,6 +138,13 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+export type User = {
+  userId: number;
+  nickname: string;
+  email: string;
+  picture: string;
+};
+
 export type RecordItem = {
   recordId: number;
   categoryId?: number;
@@ -272,5 +279,16 @@ export async function fetchCategories() {
 
 export async function fetchUser() {
   const res = await api.get("/user/me");
+  return res.data.data;
+}
+
+export async function updateUser(newUser: {
+  userId: number;
+  email: string;
+  nickname: string;
+  picture: string;
+}) {
+  console.log(newUser);
+  const res = await api.post("/user/me", newUser);
   return res.data.data;
 }

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import AIReport from "./pages/AIReport";
 import MyPage from "./pages/MyPage";
 import List from "./pages/RecordListPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/ai-report" element={<AIReport />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
+      <ToastContainer position="top-center" autoClose={3000} />
     </>
   );
 }
