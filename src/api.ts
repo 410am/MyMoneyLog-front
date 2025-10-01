@@ -296,3 +296,7 @@ export async function updateUser(newUser: {
 export async function logout() {
   await api.post("/auth/logout", {}, { withCredentials: true });
 }
+
+export async function withdrawal() {
+  await api.delete("/user/me");
+}

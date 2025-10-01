@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { logout, updateUser } from "../api";
+import { logout, updateUser, withdrawal } from "../api";
 import { authStore } from "../store/AuthStore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -61,6 +61,11 @@ const MyPage = () => {
     navigate("/");
   };
 
+  const handleWithdrawal = async () => {
+    await withdrawal();
+    handleLogout();
+  };
+
   return (
     <div>
       MyPage
@@ -92,6 +97,9 @@ const MyPage = () => {
       </div>
       <div>
         <button onClick={handleLogout}>로그아웃</button>
+      </div>
+      <div>
+        <button onClick={handleWithdrawal}>회원 탈퇴</button>
       </div>
     </div>
   );
