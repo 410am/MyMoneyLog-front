@@ -3,7 +3,7 @@ import {
   GoogleOAuthProvider,
 } from "@react-oauth/google";
 import axios from "axios";
-import { authStore } from "../store/AuthStore";
+import { UserAuthStore } from "../store/AuthStore";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -23,7 +23,7 @@ const Login = () => {
 
       const accessToken = res.data.data?.jwt;
 
-      authStore.getState().setAuth(res.data.data);
+      UserAuthStore.getState().setAuth(res.data.data);
 
       localStorage.setItem("accessToken", accessToken);
 

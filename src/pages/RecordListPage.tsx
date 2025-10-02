@@ -8,7 +8,7 @@ import {
   type RecordItem,
 } from "../api";
 import FilterBar from "../components/FilterBar";
-import { authStore } from "../store/AuthStore";
+import { UserAuthStore } from "../store/AuthStore";
 
 import { ConfirmModal } from "../components/ConfirmModal";
 import Category from "./Category";
@@ -21,7 +21,7 @@ export default function RecordListPage() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   // const email = authStore((state) => state.email);
-  const userId = authStore((state) => state.userId);
+  const userId = UserAuthStore((state) => state.userId);
 
   useEffect(() => {
     let cancel = false;
