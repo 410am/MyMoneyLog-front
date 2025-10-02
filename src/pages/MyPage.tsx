@@ -3,6 +3,9 @@ import { logout, updateUser, withdrawal } from "../api";
 import { authStore } from "../store/AuthStore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader } from "../components/ui/card";
+import { ConfirmModal } from "../components/ConfirmModal";
+import defaultProfile from "../assets/icons/mml 기본프로필.png";
 
 const MyPage = () => {
   // const token = localStorage.getItem("accessToken");
@@ -69,12 +72,19 @@ const MyPage = () => {
   return (
     <div>
       MyPage
-      <div>
-        <div>{userId}</div>
-        <div>{nickname}</div>
-        <div>{email}</div>
-        <div>{picture}</div>
-      </div>
+      <Card>
+        <CardHeader>내 정보</CardHeader>
+        <CardContent>
+          <p>아이디: {userId}</p>
+          <p>닉네임: {nickname}</p>
+          <p>이메일: {email}</p>
+          <img
+            className="w-10 h-10 rounded-full outline outline-1"
+            src={picture || defaultProfile}
+            alt="프로필"
+          />
+        </CardContent>
+      </Card>
       <div>
         <h2>회원정보 수정</h2>
 
@@ -99,7 +109,17 @@ const MyPage = () => {
         <button onClick={handleLogout}>로그아웃</button>
       </div>
       <div>
-        <button onClick={handleWithdrawal}>회원 탈퇴</button>
+        {/* <button onClick={handleWithdrawal}>회원 탈퇴</button> */}
+        <ConfirmModal
+          triggerLabel="회원탈퇴"
+          title="정말 탈퇴하시겠습니까?"
+          description="탈퇴하면 모든 데이터가 삭제되며 복구할 수 없습니다."
+          confirmLabel="탈퇴"
+          cancelLabel="취소"
+          onConfirm={() => {
+            handleWithdrawal();
+          }}
+        />
       </div>
     </div>
   );
