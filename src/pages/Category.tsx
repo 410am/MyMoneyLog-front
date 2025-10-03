@@ -39,6 +39,8 @@ const Category = () => {
     }
   };
 
+  const [focused, setFocused] = useState<boolean>(false);
+
   return (
     <>
       <>
@@ -56,7 +58,9 @@ const Category = () => {
             onChange={(e) => {
               setNewCategory({ ...newCategory, categoryName: e.target.value });
             }}
-            placeholder="ex)배달음식"
+            placeholder={focused ? "" : "ex)배달음식"}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
           />
 
           <select

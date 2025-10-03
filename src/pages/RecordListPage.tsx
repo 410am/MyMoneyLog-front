@@ -95,7 +95,7 @@ export default function RecordListPage() {
       <ConfirmModal
         triggerLabel="카테고리 수정"
         title="카테고리"
-        description={<Category />}
+        component={<Category />}
         confirmLabel="저장"
         cancelLabel="취소"
       />

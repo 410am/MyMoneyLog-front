@@ -13,7 +13,8 @@ import { Button } from "../components/ui/button";
 type ConfirmModalProps = {
   triggerLabel: string;
   title: string;
-  description: string | React.ReactNode;
+  description?: string;
+  component: React.ReactNode;
   confirmLabel?: string;
   cancelLabel: string;
   onConfirm?: () => void;
@@ -23,6 +24,7 @@ export function ConfirmModal({
   triggerLabel,
   title,
   description,
+  component,
   confirmLabel = "확인",
   cancelLabel = "취소",
   onConfirm,
@@ -38,9 +40,7 @@ export function ConfirmModal({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            {typeof description === "string" ? <>{description}</> : description}
-          </DialogDescription>
+          <DialogDescription>{<>{description}</>}</DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
@@ -53,6 +53,7 @@ export function ConfirmModal({
             </Button>
           </DialogClose>
         </DialogFooter>
+        {component}
       </DialogContent>
     </Dialog>
   );
