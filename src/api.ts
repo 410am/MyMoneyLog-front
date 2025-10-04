@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { ListFilters } from "./hooks/useListFilters";
-import { CategoryType } from "./pages/Category";
+import { Category } from "./pages/Category";
 
 export const api = axios.create({
   baseURL: "http://localhost:8080",
@@ -143,12 +143,20 @@ export async function fetchRecords(params: ListFilters) {
 
 export async function fetchCategories() {
   const res = await api.get("/category/user/me");
+  console.log(res);
   return res.data.data;
 }
 
-export async function createCategory(params: CategoryType) {
+export async function createCategory(params: Category) {
   console.log(params);
-  await api.post("/category", params);
+  const res = await api.post("/category", params);
+  return res.data.data;
+}
+
+export async function updateCategory(params: Category) {
+  const res = await api.post(`category/${params.categoryId}`, params);
+  console.log("api쪽", res.data.data);
+  return res.data.data;
 }
 
 export async function fetchUser() {
