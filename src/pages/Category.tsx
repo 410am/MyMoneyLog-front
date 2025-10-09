@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { createCategory, fetchCategories, updateCategory } from "../api";
+import {
+  createCategory,
+  fetchCategories,
+  updateCategory,
+  deleteCategory,
+} from "../api";
 import { UserAuthStore } from "../store/AuthStore";
 import EditIcon from "@mui/icons-material/Edit";
+import Delete from "@mui/icons-material/Delete";
 
 export type Category = {
   categoryId: number | null;
@@ -45,6 +51,14 @@ const Category = () => {
       console.log(newCategory);
       const res = await createCategory(newCategory);
       setCategoryList([...categoryList, res]);
+
+      setNewCategory({
+        categoryId: null,
+        userId: userId,
+        categoryName: "",
+        type: "",
+        default: false,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -75,6 +89,21 @@ const Category = () => {
       });
     } catch (error) {
       console.error("카테고리 수정 실패:", error);
+    }
+  };
+
+  const handleDeleteCategory = async (categoryId: number | null) => {
+    try {
+      if (categoryId === null) {
+        alert("유효하지 않은 카테고리입니다.");
+      } else {
+        await deleteCategory(categoryId);
+        setCategoryList((prev) =>
+          prev.filter((c) => c.categoryId != categoryId)
+        );
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -130,6 +159,16 @@ const Category = () => {
                   </button>
                 </div>
               )}
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDeleteCategory(category.categoryId);
+                  }}
+                >
+                  {category["default"] === false && <Delete />}
+                </button>
+              </div>
             </div>
           );
         })}

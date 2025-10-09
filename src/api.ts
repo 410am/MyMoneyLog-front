@@ -159,6 +159,10 @@ export async function updateCategory(params: Category) {
   return res.data.data;
 }
 
+export async function deleteCategory(params: number) {
+  await api.delete(`category/${params}`);
+}
+
 export async function fetchUser() {
   const res = await api.get("/user/me");
   return res.data.data;

@@ -25,8 +25,8 @@ export function ConfirmModal({
   title,
   description,
   component,
-  confirmLabel = "확인",
-  cancelLabel = "취소",
+  confirmLabel,
+  cancelLabel,
   onConfirm,
 }: ConfirmModalProps) {
   return (
@@ -43,7 +43,7 @@ export function ConfirmModal({
           <DialogDescription>{<>{description}</>}</DialogDescription>
         </DialogHeader>
 
-        <DialogFooter>
+        {/* <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">{cancelLabel}</Button>
           </DialogClose>
@@ -52,7 +52,7 @@ export function ConfirmModal({
               {confirmLabel}
             </Button>
           </DialogClose>
-        </DialogFooter>
+        </DialogFooter> */}
         {component}
       </DialogContent>
     </Dialog>
