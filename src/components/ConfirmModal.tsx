@@ -4,8 +4,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
-  DialogClose,
   DialogTrigger,
 } from "../components/ui/dialog";
 import { Button } from "../components/ui/button";
@@ -25,9 +23,6 @@ export function ConfirmModal({
   title,
   description,
   component,
-  confirmLabel,
-  cancelLabel,
-  onConfirm,
 }: ConfirmModalProps) {
   return (
     <Dialog>
