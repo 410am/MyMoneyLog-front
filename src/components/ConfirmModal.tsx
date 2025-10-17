@@ -5,6 +5,8 @@ import {
   DialogTitle,
   DialogDescription,
   DialogTrigger,
+  DialogFooter,
+  DialogClose,
 } from "../components/ui/dialog";
 import { Button } from "../components/ui/button";
 
@@ -13,9 +15,7 @@ type ConfirmModalProps = {
   title: string;
   description?: string;
   component: React.ReactNode;
-  confirmLabel?: string;
-  cancelLabel: string;
-  onConfirm?: () => void;
+  cancelLabel?: string;
 };
 
 export function ConfirmModal({
@@ -23,32 +23,27 @@ export function ConfirmModal({
   title,
   description,
   component,
+  cancelLabel = "닫기",
 }: ConfirmModalProps) {
   return (
     <Dialog>
-      {/* 열기 버튼 */}
       <DialogTrigger asChild>
         <Button variant="outline">{triggerLabel}</Button>
       </DialogTrigger>
 
-      {/* 모달 내용 */}
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{<>{description}</>}</DialogDescription>
+          {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
 
-        {/* <DialogFooter>
+        {component}
+
+        <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">{cancelLabel}</Button>
           </DialogClose>
-          <DialogClose asChild>
-            <Button variant="destructive" onClick={onConfirm}>
-              {confirmLabel}
-            </Button>
-          </DialogClose>
-        </DialogFooter> */}
-        {component}
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

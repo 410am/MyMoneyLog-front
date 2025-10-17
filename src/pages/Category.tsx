@@ -5,7 +5,7 @@ import {
   updateCategory,
   deleteCategory,
 } from "../api";
-import { UserAuthStore } from "../store/AuthStore";
+import { authStore } from "../store/AuthStore";
 import EditIcon from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 
@@ -18,7 +18,7 @@ export type Category = {
 };
 
 const Category = () => {
-  const userId = UserAuthStore((state) => state.userId);
+  const userId = authStore((state) => state.userId);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
 
   const [newCategory, setNewCategory] = useState<Category>({
@@ -139,7 +139,9 @@ const Category = () => {
                     }}
                     name="type"
                   >
-                    <option value="">유형</option>
+                    <option value="" disabled hidden>
+                      유형
+                    </option>
                     <option value="EXPENSE">지출</option>
                     <option value="INCOME">수입</option>
                   </select>

@@ -42,7 +42,7 @@ type userAuthState = {
   clearAuth: () => void;
 };
 
-export const UserAuthStore = create<userAuthState>()(
+export const authStore = create<userAuthState>()(
   persist(
     (set) => ({
       userId: null,

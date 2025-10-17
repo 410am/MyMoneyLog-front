@@ -15,13 +15,14 @@ export type User = {
 };
 
 export type RecordItem = {
-  recordId: number;
-  categoryId?: number;
+  recordId: number | null;
+  userId: number | null;
+  categoryId?: number | null;
   categoryName: string;
-  type: "INCOME" | "EXPENSE";
+  type: string;
   amount: number;
-  date: string;
   memo?: string;
+  date: string;
 };
 
 export type PageResp<T> = {
@@ -141,21 +142,23 @@ export async function fetchRecords(params: ListFilters) {
   return normalizePage(res.data);
 }
 
+export async function createRecord(params: RecordItem) {
+  const res = await api.post("/record", params);
+  return res.data.data;
+}
+
 export async function fetchCategories() {
   const res = await api.get("/category/user/me");
-  console.log(res);
   return res.data.data;
 }
 
 export async function createCategory(params: Category) {
-  console.log(params);
   const res = await api.post("/category", params);
   return res.data.data;
 }
 
 export async function updateCategory(params: Category) {
   const res = await api.post(`category/${params.categoryId}`, params);
-  console.log("api쪽", res.data.data);
   return res.data.data;
 }
 
@@ -174,7 +177,6 @@ export async function updateUser(newUser: {
   nickname: string;
   picture: string;
 }) {
-  console.log(newUser);
   const res = await api.post("/user/me", newUser);
   return res.data.data;
 }

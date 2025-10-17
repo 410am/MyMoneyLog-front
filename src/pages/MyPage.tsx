@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { logout, updateUser, withdrawal } from "../api";
-import { UserAuthStore } from "../store/AuthStore";
+import { authStore } from "../store/AuthStore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "../components/ui/card";
@@ -13,7 +13,7 @@ const MyPage = () => {
   // const email = authStore((state) => state.email);
   // const userId = authStore((state) => state.userId);
   // const picture = authStore((state) => state.picture);
-  const { userId, email, nickname, picture } = UserAuthStore();
+  const { userId, email, nickname, picture } = authStore();
 
   const navigate = useNavigate();
 

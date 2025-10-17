@@ -8,10 +8,11 @@ import {
   type RecordItem,
 } from "../api";
 import FilterBar from "../components/FilterBar";
-import { UserAuthStore } from "../store/AuthStore";
+import { authStore } from "../store/AuthStore";
 
 import { ConfirmModal } from "../components/ConfirmModal";
 import Category from "./Category";
+import Record from "./Record";
 
 export type CategoryOption = { categoryId: number; categoryName: string };
 
@@ -21,7 +22,7 @@ export default function RecordListPage() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   // const email = authStore((state) => state.email);
-  const userId = UserAuthStore((state) => state.userId);
+  const userId = authStore((state) => state.userId);
 
   useEffect(() => {
     let cancel = false;
@@ -41,6 +42,16 @@ export default function RecordListPage() {
       cancel = true;
     };
   }, [filters]);
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const res = await fetchRecords(filters);
+      setData(res);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const list = data?.content ?? [];
 
@@ -78,29 +89,23 @@ export default function RecordListPage() {
 
   const [categoryList, setCategoryList] = useState<CategoryOption[]>([]);
 
-  // useEffect(() => {
-  //   const uniq = Array.from(
-  //     new Map(
-  //       list.map((r) => [
-  //         r.categoryId,
-  //         { categoryId: Number(r.categoryId), categoryName: r.categoryName },
-  //       ])
-  //     ).values()
-  //   );
-  //   setCategoryList(uniq);
-  // }, [list]); // todo : list로 의존성 해놓으니까 카테고리 다시 선택할 때 문제생김 아예 백에서 카테고리리스트 받아와야될듯
-
   return (
     <div className="max-w-3xl mx-auto p-4 space-y-4">
       <ConfirmModal
         triggerLabel="카테고리 수정"
         title="카테고리"
         component={<Category />}
-        confirmLabel="저장"
         cancelLabel="취소"
       />
 
       <FilterBar value={filters} onChange={update} categories={categoryList} />
+
+      <ConfirmModal
+        triggerLabel="기록 추가"
+        title="기록 추가"
+        component={<Record onCreated={fetchData} />}
+        cancelLabel="취소"
+      />
 
       {loading && <div>불러오는 중…</div>}
       {err && <div className="text-red-500">에러: {err}</div>}
