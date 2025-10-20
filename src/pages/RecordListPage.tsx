@@ -12,7 +12,8 @@ import { authStore } from "../store/AuthStore";
 
 import { ConfirmModal } from "../components/ConfirmModal";
 import Category from "./Category";
-import Record from "./Record";
+import RecordCreation from "./RecordCreation";
+import { useNavigate } from "react-router-dom";
 
 export type CategoryOption = { categoryId: number; categoryName: string };
 
@@ -23,23 +24,25 @@ export default function RecordListPage() {
   const [err, setErr] = useState<string | null>(null);
   // const email = authStore((state) => state.email);
   const userId = authStore((state) => state.userId);
+  const navigate = useNavigate();
+  const [categoryList, setCategoryList] = useState<CategoryOption[]>([]);
 
   useEffect(() => {
-    let cancel = false;
+    let oncancel = false;
     (async () => {
       try {
         setLoading(true);
         setErr(null);
         const res = await fetchRecords(filters);
-        if (!cancel) setData(res);
+        if (!oncancel) setData(res);
       } catch (e: any) {
-        if (!cancel) setErr(e?.message ?? "failed");
+        if (!oncancel) setErr(e?.message ?? "failed");
       } finally {
-        if (!cancel) setLoading(false);
+        if (!oncancel) setLoading(false);
       }
     })();
     return () => {
-      cancel = true;
+      oncancel = true;
     };
   }, [filters]);
 
@@ -87,12 +90,10 @@ export default function RecordListPage() {
     };
   }, [userId]);
 
-  const [categoryList, setCategoryList] = useState<CategoryOption[]>([]);
-
   return (
     <div className="max-w-3xl mx-auto p-4 space-y-4">
       <ConfirmModal
-        triggerLabel="카테고리 수정"
+        triggerLabel="카테고리 편집"
         title="카테고리"
         component={<Category />}
         cancelLabel="취소"
@@ -103,7 +104,7 @@ export default function RecordListPage() {
       <ConfirmModal
         triggerLabel="기록 추가"
         title="기록 추가"
-        component={<Record onCreated={fetchData} />}
+        component={<RecordCreation onCreated={fetchData} />}
         cancelLabel="취소"
       />
 
@@ -111,10 +112,20 @@ export default function RecordListPage() {
       {err && <div className="text-red-500">에러: {err}</div>}
 
       {list.length > 0 && (
-        <>
+        <div>
           <ul className="divide-y rounded-lg border bg-white">
             {list.map((r) => (
-              <li key={r.recordId} className="p-4 flex justify-between">
+              <li
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate(`/list/${r.recordId}`)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    navigate(`/records/${r.recordId}`);
+                }}
+                className="cursor-pointer hover:bg-gray-50 transition rounded-md p-3"
+                key={r.recordId}
+              >
                 <div>
                   <div className="text-xs text-gray-500">
                     {r.date} · {r.categoryName}
@@ -154,7 +165,7 @@ export default function RecordListPage() {
               다음
             </button>
           </div>
-        </>
+        </div>
       )}
 
       {!loading && !err && list.length === 0 && (

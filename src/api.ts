@@ -40,6 +40,7 @@ const isObj = (v: unknown): v is Record<string, unknown> =>
 function mapRecord(r: any): RecordItem {
   return {
     recordId: Number(r.recordId ?? r.id),
+    userId: r.userId ?? null,
     categoryId:
       typeof r.categoryId === "number" ? r.categoryId : r.category?.categoryId,
     categoryName: String(r.categoryName ?? r.category?.name ?? ""),
@@ -142,8 +143,23 @@ export async function fetchRecords(params: ListFilters) {
   return normalizePage(res.data);
 }
 
+export async function fetchRecordById(params: number) {
+  const res = await api.get(`/record/${params}`);
+  return res.data.data;
+}
+
 export async function createRecord(params: RecordItem) {
   const res = await api.post("/record", params);
+  return res.data.data;
+}
+
+export async function updateRecord(params: RecordItem) {
+  const res = await api.post(`/record/${params.recordId}`, params);
+  return res.data.data;
+}
+
+export async function deleteRecord(params: number) {
+  const res = await api.delete(`/record/${params}`);
   return res.data.data;
 }
 

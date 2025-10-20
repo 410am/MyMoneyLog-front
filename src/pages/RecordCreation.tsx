@@ -9,7 +9,7 @@ type RecordProps = {
   onCreated?: () => Promise<void>;
 };
 
-const Record = ({ onCreated }: RecordProps) => {
+const RecordCreation = ({ onCreated }: RecordProps) => {
   const userId = authStore((state) => state.userId);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [newRecord, setNewRecord] = useState<RecordItem>({
@@ -117,4 +117,4 @@ const Record = ({ onCreated }: RecordProps) => {
   );
 };
 
-export default Record;
+export default RecordCreation;
