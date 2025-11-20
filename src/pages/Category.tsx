@@ -18,6 +18,115 @@ export type Category = {
 };
 
 const Category = () => {
+  const dummyCategories = [
+    {
+      categoryId: 1,
+      userId: 1,
+      categoryName: "식비",
+      type: "EXPENSE",
+      default: true,
+    },
+    {
+      categoryId: 2,
+      userId: 1,
+      categoryName: "카페/디저트",
+      type: "EXPENSE",
+      default: true,
+    },
+    {
+      categoryId: 3,
+      userId: 1,
+      categoryName: "교통비",
+      type: "EXPENSE",
+      default: true,
+    },
+    {
+      categoryId: 4,
+      userId: 1,
+      categoryName: "쇼핑",
+      type: "EXPENSE",
+      default: false,
+    },
+    {
+      categoryId: 5,
+      userId: 1,
+      categoryName: "취미/여가",
+      type: "EXPENSE",
+      default: false,
+    },
+    {
+      categoryId: 6,
+      userId: 1,
+      categoryName: "건강/의료",
+      type: "EXPENSE",
+      default: false,
+    },
+    {
+      categoryId: 7,
+      userId: 1,
+      categoryName: "주거/월세",
+      type: "EXPENSE",
+      default: true,
+    },
+    {
+      categoryId: 8,
+      userId: 1,
+      categoryName: "통신비",
+      type: "EXPENSE",
+      default: true,
+    },
+    {
+      categoryId: 9,
+      userId: 1,
+      categoryName: "보험",
+      type: "EXPENSE",
+      default: false,
+    },
+    {
+      categoryId: 10,
+      userId: 1,
+      categoryName: "교육",
+      type: "EXPENSE",
+      default: false,
+    },
+
+    {
+      categoryId: 11,
+      userId: 1,
+      categoryName: "월급",
+      type: "INCOME",
+      default: true,
+    },
+    {
+      categoryId: 12,
+      userId: 1,
+      categoryName: "보너스",
+      type: "INCOME",
+      default: false,
+    },
+    {
+      categoryId: 13,
+      userId: 1,
+      categoryName: "용돈",
+      type: "INCOME",
+      default: false,
+    },
+    {
+      categoryId: 14,
+      userId: 1,
+      categoryName: "투자수익",
+      type: "INCOME",
+      default: false,
+    },
+    {
+      categoryId: 15,
+      userId: 1,
+      name: "기타수입",
+      type: "INCOME",
+      default: false,
+    },
+  ];
+
   const userId = authStore((state) => state.userId);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
 
@@ -110,12 +219,12 @@ const Category = () => {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
-    <>
-      <>
-        <h2>카테고리</h2>
-        {categoryList.map((category) => {
+    <div className="outline outline-red-600">
+      <div>
+        {/* {categoryList.map((category) => { */}
+        {dummyCategories.map((category) => {
           return (
-            <div key={category.categoryId}>
+            <div key={category.categoryId} className="flex">
               {category.categoryId == editCategory.categoryId ? (
                 <form onSubmit={handleEditCategory}>
                   <input
@@ -150,7 +259,7 @@ const Category = () => {
                   </button>
                 </form>
               ) : (
-                <div>
+                <div className="flex">
                   <p>{category.categoryName}</p>
                   <p>{category.type}</p>
                   <button
@@ -174,7 +283,7 @@ const Category = () => {
             </div>
           );
         })}
-      </>
+      </div>
       <>
         <h2>사용자 카테고리</h2>
         <form onSubmit={handleCreateSubmit}>
@@ -204,7 +313,7 @@ const Category = () => {
           <button type="submit">추가</button>
         </form>
       </>
-    </>
+    </div>
   );
 };
 

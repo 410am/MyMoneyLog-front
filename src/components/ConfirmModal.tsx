@@ -28,15 +28,14 @@ export function ConfirmModal({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{triggerLabel}</Button>
+        <Button className="bg-transparent text-gray-400">{triggerLabel}</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className=" h-5/6 overflow-scroll">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-
         {component}
 
         <DialogFooter>

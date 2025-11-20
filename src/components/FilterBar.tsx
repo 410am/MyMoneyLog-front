@@ -1,6 +1,17 @@
 // src/features/records/components/FilterBar.tsx
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CategoryOption } from "../pages/RecordListPage";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import DateRangePicker from "./DateRangePicker";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "../components/ui/select";
+import SearchIcon from "@mui/icons-material/Search";
 
 export type ListFilters = {
   categoryId?: string;
@@ -41,6 +52,21 @@ export default function FilterBar({
   const [searchInput, setSearchInput] = useState(value.search ?? "");
   const debouncedSearch = useDebounced(searchInput, 300);
 
+  const [range, setRange] = useState<{ from?: string; to?: string }>({});
+
+  const dummyCategories: CategoryOption[] = [
+    { categoryId: 1, categoryName: "식비" },
+    { categoryId: 2, categoryName: "카페/디저트" },
+    { categoryId: 3, categoryName: "편의점/마트" },
+    { categoryId: 4, categoryName: "교통비" },
+    { categoryId: 5, categoryName: "주거/관리비" },
+    { categoryId: 6, categoryName: "의료/건강" },
+    { categoryId: 7, categoryName: "쇼핑" },
+    { categoryId: 8, categoryName: "취미/여가" },
+    { categoryId: 9, categoryName: "교육" },
+    { categoryId: 10, categoryName: "월급" },
+  ];
+
   // 외부 value가 바뀌면 입력창도 동기화
   useEffect(() => {
     setSearchInput(value.search ?? "");
@@ -53,7 +79,7 @@ export default function FilterBar({
     }
   }, [debouncedSearch]);
 
-  const sizes = useMemo(() => [10, 20, 50], []);
+  // const sizes = useMemo(() => [10, 20, 50], []);
 
   const resetFilters = () => {
     setSearchInput("");
@@ -68,28 +94,96 @@ export default function FilterBar({
     });
   };
 
+  const [dateOpen, setDateOpen] = useState(false);
+
   return (
-    <div className={`grid grid-cols-2 sm:grid-cols-6 gap-2 ${className ?? ""}`}>
+    <div
+      className={`grid grid-cols-2 sm:grid-cols-6 gap-2 ${
+        className ?? ""
+      } h-full`}
+    >
+      {/* 초기화 */}
+      <div className="col-span-2 sm:col-span-6 flex gap-2 h-fit w-fit ml-auto self-end pr-20 pb-2">
+        <button
+          type="button"
+          onClick={resetFilters}
+          className="text-gray-400 text-sm h-fit"
+        >
+          필터 초기화
+        </button>
+      </div>
+
       {/* 카테고리 */}
       {showCategory && (
-        <label className="col-span-2 sm:col-span-2">
-          <span className="sr-only">카테고리</span>
-          <select
-            className="w-full border rounded-lg px-3 py-2"
-            value={value.categoryId ?? ""}
-            onChange={(e) =>
-              onChange({ categoryId: e.target.value || undefined })
-            }
+        <label className="col-span-2 sm:col-span-2 ml-auto">
+          <Select
+            value={value.categoryId ?? undefined}
+            onValueChange={(e) => onChange({ categoryId: e || undefined })}
           >
-            <option value="">전체 카테고리</option>
-            {categories.map((c) => (
-              <option key={c.categoryId} value={c.categoryId}>
-                {c.categoryName}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className="w-fit px-3 py-2 text-xl font-semibold text-slate-700">
+              <SelectValue placeholder="카테고리" />
+            </SelectTrigger>
+            {/* {categories.length > 0 && ( */}
+            {dummyCategories.length > 0 && (
+              <SelectContent>
+                {/* {categories.map((c) => ( */}
+                {dummyCategories.map((c) => (
+                  <SelectItem key={c.categoryId} value={String(c.categoryId)}>
+                    {c.categoryName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            )}
+          </Select>
         </label>
       )}
+
+      {/* 날짜 */}
+      <div className="relative pl-4">
+        <button
+          onClick={() => setDateOpen(!dateOpen)}
+          className="text-xl font-semibold text-slate-700 flex pt-[6px] pl-6 "
+        >
+          날짜
+        </button>
+        {dateOpen && (
+          <div className="absolute left-0 mt-2 z-50 bg-white border rounded-lg shadow-lg p-2">
+            <DateRangePicker
+              value={range}
+              onChange={(r) => setRange(r)} // 여기선 상태만 업데이트
+            />
+
+            <div className="flex justify-end gap-2 mt-2">
+              <button
+                type="button"
+                className="px-3 py-1 text-sm border rounded"
+                onClick={() => setDateOpen(false)}
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                className="px-3 py-1 text-sm bg-slate-900 text-white rounded"
+                onClick={() => {
+                  if (range?.from && range?.to) {
+                    onChange({
+                      from: range.from,
+                      to: range.to,
+                    });
+                  } else if (range?.from && !range.to) {
+                    // 한 날짜만 선택된 경우 → 단일 날짜 필터로 쓰고 싶으면 이렇게
+                    const d = range.from;
+                    onChange({ from: d, to: d });
+                  }
+                  setDateOpen(false);
+                }}
+              >
+                적용
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* 타입 */}
       <label
@@ -97,63 +191,47 @@ export default function FilterBar({
           showCategory ? "col-span-1" : "col-span-2"
         } sm:col-span-1`}
       >
-        <span className="sr-only">구분</span>
-        <select
-          className="w-full border rounded-lg px-3 py-2"
-          value={value.type ?? ""}
-          onChange={(e) =>
+        <Select
+          value={value.type}
+          onValueChange={(v) =>
             onChange({
-              type: (e.target.value || undefined) as ListFilters["type"],
+              type: v === "ALL" ? undefined : (v as ListFilters["type"]),
             })
           }
         >
-          <option value="">전체</option>
-          <option value="EXPENSE">지출</option>
-          <option value="INCOME">수입</option>
-        </select>
-      </label>
+          <SelectTrigger className="w-fit px-3 py-2 text-xl font-semibold text-slate-700">
+            <SelectValue placeholder="유형" />
+          </SelectTrigger>
 
-      {/* 시작일 */}
-      <label className="col-span-1 sm:col-span-1">
-        <span className="sr-only">시작일</span>
-        <input
-          type="date"
-          className="w-full border rounded-lg px-3 py-2"
-          value={value.from ?? ""}
-          onChange={(e) => onChange({ from: e.target.value || undefined })}
-        />
-      </label>
-
-      {/* 종료일 */}
-      <label className="col-span-1 sm:col-span-1">
-        <span className="sr-only">종료일</span>
-        <input
-          type="date"
-          className="w-full border rounded-lg px-3 py-2"
-          value={value.to ?? ""}
-          onChange={(e) => onChange({ to: e.target.value || undefined })}
-        />
+          <SelectContent>
+            <SelectItem value="ALL">전체</SelectItem>
+            <SelectItem value="EXPENSE">지출</SelectItem>
+            <SelectItem value="INCOME">수입</SelectItem>
+          </SelectContent>
+        </Select>
       </label>
 
       {/* 정렬 */}
       <label className="col-span-1 sm:col-span-1">
-        <span className="sr-only">정렬</span>
-        <select
-          className="w-full border rounded-lg px-3 py-2"
-          value={value.sort ?? "date_desc"}
-          onChange={(e) =>
-            onChange({ sort: e.target.value as ListFilters["sort"] })
-          }
+        <Select
+          value={value.sort}
+          onValueChange={(e) => onChange({ sort: e as ListFilters["sort"] })}
         >
-          <option value="date_desc">날짜↑</option>
-          <option value="date_asc">날짜↓</option>
-          <option value="amount_desc">금액↑</option>
-          <option value="amount_asc">금액↓</option>
-        </select>
+          <SelectTrigger className="w-max px-3 py-2 text-xl font-semibold text-slate-700">
+            <SelectValue placeholder="정렬" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="date_desc">최신순</SelectItem>
+            <SelectItem value="date_asc">날짜순</SelectItem>
+            <SelectItem value="amount_desc">금액 높은 순</SelectItem>
+            <SelectItem value="amount_asc">금액 낮은 순</SelectItem>
+          </SelectContent>
+        </Select>
       </label>
 
       {/* 페이지 크기 */}
-      <label className="col-span-1 sm:col-span-1">
+      {/* <label className="col-span-1 sm:col-span-1">
         <span className="sr-only">페이지 크기</span>
         <select
           className="w-full border rounded-lg px-3 py-2"
@@ -166,29 +244,18 @@ export default function FilterBar({
             </option>
           ))}
         </select>
-      </label>
+      </label> */}
 
       {/* 검색 */}
-      <label className="col-span-2 sm:col-span-6">
-        <span className="sr-only">검색</span>
+      <label className="col-span-2 sm:col-span-6 ml-auto self-end pb-3 pr-7 relative">
+        <SearchIcon className="absolute mt-[10px] ml-[9px] text-gray-300" />
         <input
-          className="w-full border rounded-lg px-3 py-2"
-          placeholder="메모 검색"
+          className="w-96 border rounded-lg pr-3 py-2 pl-10"
+          placeholder={"검색"}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
       </label>
-
-      {/* 액션 */}
-      <div className="col-span-2 sm:col-span-6 flex gap-2 justify-end">
-        <button
-          type="button"
-          onClick={resetFilters}
-          className="px-3 py-2 border rounded-lg"
-        >
-          초기화
-        </button>
-      </div>
     </div>
   );
 }
