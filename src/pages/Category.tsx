@@ -219,12 +219,12 @@ const Category = () => {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
-    <div className="outline outline-red-600">
-      <div>
+    <div>
+      <div className="pb-8 pt-3">
         {/* {categoryList.map((category) => { */}
         {dummyCategories.map((category) => {
           return (
-            <div key={category.categoryId} className="flex">
+            <div key={category.categoryId} className="flex py-3">
               {category.categoryId == editCategory.categoryId ? (
                 <form onSubmit={handleEditCategory}>
                   <input
@@ -259,34 +259,53 @@ const Category = () => {
                   </button>
                 </form>
               ) : (
-                <div className="flex">
-                  <p>{category.categoryName}</p>
-                  <p>{category.type}</p>
+                <div className="w-full flex">
+                  <div className="w-2/3 flex">
+                    <p className="font-extrabold text-lg ml-10">
+                      {category.categoryName}
+                    </p>
+                    <p
+                      className={`ml-auto ${
+                        category.type == "EXPENSE"
+                          ? "text-red-500"
+                          : "text-blue-500"
+                      }`}
+                    >
+                      {category.type == "EXPENSE" ? "지출" : "수입"}
+                    </p>
+                  </div>
                   <button
+                    className="ml-auto"
                     type="button"
                     onClick={() => setEditCategory(category)}
                   >
-                    {category["default"] === false && <EditIcon />}
+                    {category["default"] === false && (
+                      <EditIcon fontSize="inherit" className="text-gray-400" />
+                    )}
                   </button>
                 </div>
               )}
-              <div>
+              <div className="w-fit">
                 <button
                   type="button"
                   onClick={() => {
                     handleDeleteCategory(category.categoryId);
                   }}
+                  className="px-2"
                 >
-                  {category["default"] === false && <Delete />}
+                  {category["default"] === false ? (
+                    <Delete fontSize="inherit" className="text-gray-400" />
+                  ) : (
+                    <div className="px-2"></div>
+                  )}
                 </button>
               </div>
             </div>
           );
         })}
       </div>
-      <>
-        <h2>사용자 카테고리</h2>
-        <form onSubmit={handleCreateSubmit}>
+      <div className="pl-10 w-full">
+        <form onSubmit={handleCreateSubmit} className="w-full flex mt-1 mb-10">
           <input
             value={newCategory.categoryName}
             name="카테고리 이름"
@@ -304,15 +323,18 @@ const Category = () => {
             onChange={(e) => {
               setNewCategory({ ...newCategory, type: e.target.value });
             }}
+            className="pl-9"
           >
             <option value="">유형</option>
             <option value="EXPENSE">지출</option>
             <option value="INCOME">수입</option>
           </select>
 
-          <button type="submit">추가</button>
+          <button type="submit" className="ml-auto mr-4">
+            추가
+          </button>
         </form>
-      </>
+      </div>
     </div>
   );
 };

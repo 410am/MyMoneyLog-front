@@ -446,7 +446,7 @@ export default function RecordListPage() {
         ""
       ) : (
         <div className="border-b-2 pb-2 h-[30vh] flex">
-          <div className=" w-2/3 pl-16 p-3 pb-5">
+          <div className=" w-3/4 pl-16 p-3 pb-5">
             <div className="h-2/5  place-items-end place-content-end pr-5">
               <div className="text-md font-bold pb-1 text-gray-400">
                 {now.getMonth() + 1}월의 수입
@@ -479,7 +479,7 @@ export default function RecordListPage() {
               />
             </div>
 
-            <div className="absolute pt-[93px] pl-[137px] h-full">
+            <div className="absolute pt-[93px] pl-[137px] h-full ">
               <ConfirmModal
                 triggerLabel="수정"
                 title="카테고리"

@@ -199,7 +199,7 @@ export default function FilterBar({
             })
           }
         >
-          <SelectTrigger className="w-fit px-3 py-2 text-xl font-semibold text-slate-700">
+          <SelectTrigger className="w-full px-3 py-2 text-xl font-semibold text-slate-700">
             <SelectValue placeholder="유형" />
           </SelectTrigger>
 

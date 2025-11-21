@@ -31,12 +31,12 @@ export function ConfirmModal({
         <Button className="bg-transparent text-gray-400">{triggerLabel}</Button>
       </DialogTrigger>
 
-      <DialogContent className=" h-5/6 overflow-scroll">
+      <DialogContent className="h-5/6 overflow-scroll scrollbar-hide">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="mt-5 ml-8 text-2xl">{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        {component}
+        <div>{component}</div>
 
         <DialogFooter>
           <DialogClose asChild>
