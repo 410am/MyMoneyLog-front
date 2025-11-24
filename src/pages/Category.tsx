@@ -8,6 +8,13 @@ import {
 import { authStore } from "../store/AuthStore";
 import EditIcon from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "../components/ui/select";
 
 export type Category = {
   categoryId: number | null;
@@ -220,15 +227,19 @@ const Category = () => {
 
   return (
     <div>
-      <div className="pb-8 pt-3">
+      <div className="pb-8 pt-3 grid grid-cols-2 gap-5">
         {/* {categoryList.map((category) => { */}
         {dummyCategories.map((category) => {
           return (
-            <div key={category.categoryId} className="flex py-3">
+            <div
+              key={category.categoryId}
+              className="pt-5 border border-gray-300 rounded-2xl h-[120px] shadow-md"
+            >
               {category.categoryId == editCategory.categoryId ? (
-                <form onSubmit={handleEditCategory}>
+                <form onSubmit={handleEditCategory} className="">
                   <input
                     value={editCategory.categoryName}
+                    className="font-extrabold text-lg ml-8 w-5/6"
                     name="카테고리 이름"
                     onChange={(e) => {
                       setEditCategory({
@@ -238,74 +249,82 @@ const Category = () => {
                     }}
                   />
 
-                  <select
+                  <Select
                     value={editCategory.type}
-                    onChange={(e) => {
+                    onValueChange={(e) => {
                       setEditCategory({
                         ...editCategory,
-                        type: e.target.value,
+                        type: e,
                       });
                     }}
-                    name="type"
                   >
-                    <option value="" disabled hidden>
-                      유형
-                    </option>
-                    <option value="EXPENSE">지출</option>
-                    <option value="INCOME">수입</option>
-                  </select>
-                  <button type="button" onClick={handleEditCategory}>
+                    <SelectTrigger className="w-fit px-10 pb-3 text-md font-semibold text-slate-700">
+                      <SelectValue placeholder="유형" />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectItem value="EXPENSE">지출</SelectItem>
+                      <SelectItem value="INCOME">수입</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <button
+                    className="w-full flex justify-end pr-5"
+                    type="button"
+                    onClick={handleEditCategory}
+                  >
                     확인
                   </button>
                 </form>
               ) : (
-                <div className="w-full flex">
-                  <div className="w-2/3 flex">
-                    <p className="font-extrabold text-lg ml-10">
-                      {category.categoryName}
-                    </p>
-                    <p
-                      className={`ml-auto ${
-                        category.type == "EXPENSE"
-                          ? "text-red-500"
-                          : "text-blue-500"
-                      }`}
-                    >
-                      {category.type == "EXPENSE" ? "지출" : "수입"}
-                    </p>
-                  </div>
-                  <button
-                    className="ml-auto"
-                    type="button"
-                    onClick={() => setEditCategory(category)}
+                <div>
+                  <p className="font-extrabold text-lg ml-8">
+                    {category.categoryName}
+                  </p>
+
+                  <p
+                    className={`ml-9 mt-1 ${
+                      category.type == "EXPENSE"
+                        ? "text-red-500"
+                        : "text-blue-500"
+                    }`}
                   >
-                    {category["default"] === false && (
-                      <EditIcon fontSize="inherit" className="text-gray-400" />
-                    )}
-                  </button>
+                    {category.type == "EXPENSE" ? "지출" : "수입"}
+                  </p>
+                  <div className="w-full flex justify-end pr-3">
+                    <button
+                      className=""
+                      type="button"
+                      onClick={() => setEditCategory(category)}
+                    >
+                      {category["default"] === false && (
+                        <EditIcon
+                          fontSize="inherit"
+                          className="text-gray-400"
+                        />
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleDeleteCategory(category.categoryId);
+                      }}
+                      className="px-2"
+                    >
+                      {category["default"] === false ? (
+                        <Delete fontSize="inherit" className="text-gray-400" />
+                      ) : (
+                        <div className="px-2"></div>
+                      )}
+                    </button>
+                  </div>
                 </div>
               )}
-              <div className="w-fit">
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleDeleteCategory(category.categoryId);
-                  }}
-                  className="px-2"
-                >
-                  {category["default"] === false ? (
-                    <Delete fontSize="inherit" className="text-gray-400" />
-                  ) : (
-                    <div className="px-2"></div>
-                  )}
-                </button>
-              </div>
             </div>
           );
         })}
       </div>
-      <div className="pl-10 w-full">
-        <form onSubmit={handleCreateSubmit} className="w-full flex mt-1 mb-10">
+      <div className="pl-10 w-full border border-gray-300 rounded-xl shadow-md p-3 h-16 mb-4">
+        <form onSubmit={handleCreateSubmit} className="w-full flex mb-10 ">
           <input
             value={newCategory.categoryName}
             name="카테고리 이름"
@@ -317,20 +336,23 @@ const Category = () => {
             onBlur={() => setFocused(false)}
           />
 
-          <select
+          <Select
             value={newCategory.type}
-            name="카테고리 타입"
-            onChange={(e) => {
-              setNewCategory({ ...newCategory, type: e.target.value });
+            onValueChange={(e) => {
+              setNewCategory({ ...newCategory, type: e });
             }}
-            className="pl-9"
           >
-            <option value="">유형</option>
-            <option value="EXPENSE">지출</option>
-            <option value="INCOME">수입</option>
-          </select>
+            <SelectTrigger className="w-fit px-10 pb-3 text-md font-semibold text-slate-700">
+              <SelectValue placeholder="유형" />
+            </SelectTrigger>
 
-          <button type="submit" className="ml-auto mr-4">
+            <SelectContent>
+              <SelectItem value="EXPENSE">지출</SelectItem>
+              <SelectItem value="INCOME">수입</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <button type="submit" className="ml-auto mr-4 ">
             추가
           </button>
         </form>

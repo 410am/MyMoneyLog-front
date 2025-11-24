@@ -98,12 +98,12 @@ export default function FilterBar({
 
   return (
     <div
-      className={`grid grid-cols-2 sm:grid-cols-6 gap-2 ${
+      className={`grid grid-cols-2 sm:grid-cols-4 gap-2 ${
         className ?? ""
       } h-full`}
     >
       {/* 초기화 */}
-      <div className="col-span-2 sm:col-span-6 flex gap-2 h-fit w-fit ml-auto self-end pr-20 pb-2">
+      <div className="col-span-2 sm:col-span-6 flex gap-2 h-fit w-fit ml-auto self-end pr-6 pb-2">
         <button
           type="button"
           onClick={resetFilters}
@@ -139,7 +139,7 @@ export default function FilterBar({
       )}
 
       {/* 날짜 */}
-      <div className="relative pl-4">
+      <div className="relative">
         <button
           onClick={() => setDateOpen(!dateOpen)}
           className="text-xl font-semibold text-slate-700 flex pt-[6px] pl-6 "
@@ -247,7 +247,7 @@ export default function FilterBar({
       </label> */}
 
       {/* 검색 */}
-      <label className="col-span-2 sm:col-span-6 ml-auto self-end pb-3 pr-7 relative">
+      <label className="col-span-2 sm:col-span-6 ml-auto self-end pb-3 relative">
         <SearchIcon className="absolute mt-[10px] ml-[9px] text-gray-300" />
         <input
           className="w-96 border rounded-lg pr-3 py-2 pl-10"
