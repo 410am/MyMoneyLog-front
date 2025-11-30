@@ -226,7 +226,7 @@ const Category = () => {
   const [focused, setFocused] = useState<boolean>(false);
 
   return (
-    <div>
+    <div className="h-[500px]">
       <div className="pb-8 pt-3 grid grid-cols-2 gap-5">
         {/* {categoryList.map((category) => { */}
         {dummyCategories.map((category) => {
@@ -329,7 +329,10 @@ const Category = () => {
             value={newCategory.categoryName}
             name="카테고리 이름"
             onChange={(e) => {
-              setNewCategory({ ...newCategory, categoryName: e.target.value });
+              setNewCategory({
+                ...newCategory,
+                categoryName: e.target.value,
+              });
             }}
             placeholder={focused ? "" : "ex)배달음식"}
             onFocus={() => setFocused(true)}

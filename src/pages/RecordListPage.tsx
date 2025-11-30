@@ -495,7 +495,7 @@ export default function RecordListPage() {
         <div className="w-fit">
           <ConfirmModal
             triggerLabel="기록 추가"
-            title="기록 추가"
+            title=""
             component={<RecordCreation onCreated={fetchData} />}
             cancelLabel="취소"
           />
@@ -521,11 +521,11 @@ export default function RecordListPage() {
                 className="cursor-pointer hover:bg-gray-50 transition rounded-md p-3 flex justify-between"
                 key={r.recordId}
               >
-                <div>
-                  <div className="text-xs text-gray-500">
+                <div className="mb-3">
+                  <div className="text-sm text-gray-500">
                     {r.date} · {r.categoryName}
                   </div>
-                  {r.memo && <div className="text-sm">{r.memo}</div>}
+                  {r.memo && <div className="text-lg mt-1">{r.memo}</div>}
                 </div>
                 <div
                   className={

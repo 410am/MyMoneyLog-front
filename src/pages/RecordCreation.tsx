@@ -59,33 +59,37 @@ const RecordCreation = ({ onCreated }: RecordProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <select
-        value={newRecord.categoryId ?? ""}
-        onChange={(e) =>
-          setNewRecord({
-            ...newRecord,
-            categoryId: e.target.value === "" ? null : Number(e.target.value),
-          })
-        }
-      >
-        <option value="" disabled hidden>
-          카테고리 선택
-        </option>
-        {categoryList.map((c) => (
-          <option key={c.categoryId} value={String(c.categoryId!)}>
-            {c.categoryName}
+    <div className="grid grid-cols-1 px-10 py-10 h-full">
+      <div className="pb-10">
+        <select
+          className=""
+          value={newRecord.categoryId ?? ""}
+          onChange={(e) =>
+            setNewRecord({
+              ...newRecord,
+              categoryId: e.target.value === "" ? null : Number(e.target.value),
+            })
+          }
+        >
+          <option value="" disabled hidden>
+            카테고리 선택
           </option>
-        ))}
-      </select>
-
+          {categoryList.map((c) => (
+            <option key={c.categoryId} value={String(c.categoryId!)}>
+              {c.categoryName}
+            </option>
+          ))}
+        </select>
+      </div>
       <input
+        className="pb-10"
         value={newRecord.memo}
         onChange={(e) => setNewRecord({ ...newRecord, memo: e.target.value })}
         placeholder="ex) 곱창전골"
       />
 
       <input
+        className="pb-10"
         type="text"
         inputMode="numeric"
         pattern="[0-9]*"
@@ -99,16 +103,18 @@ const RecordCreation = ({ onCreated }: RecordProps) => {
         placeholder="ex) 34000"
       />
 
-      <select
-        value={newRecord.type}
-        onChange={(e) => setNewRecord({ ...newRecord, type: e.target.value })}
-      >
-        <option value="" disabled hidden>
-          유형
-        </option>
-        <option value="EXPENSE">지출</option>
-        <option value="INCOME">수입</option>
-      </select>
+      <div className="pb-10">
+        <select
+          value={newRecord.type}
+          onChange={(e) => setNewRecord({ ...newRecord, type: e.target.value })}
+        >
+          <option value="" disabled hidden>
+            유형
+          </option>
+          <option value="EXPENSE">지출</option>
+          <option value="INCOME">수입</option>
+        </select>
+      </div>
 
       <DialogClose asChild>
         <Button onClick={handleCreateSubmit}>추가</Button>

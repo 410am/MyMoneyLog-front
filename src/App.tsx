@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="min-w-[1080px] w-full">
-      <div className="px-10 py-4 max-w-[1080px] mx-auto">
+      <div className="px-10 py-4  mx-auto ">
         <div className="">
           <div className="flex gap-36 mb-10 ">
             <div
@@ -71,15 +71,17 @@ function App() {
               ) : null}
             </nav>
           </div>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login/success" element={<Home />} />
-            <Route path="/list" element={<List />} />
-            {/* <Route path="/ai-report" element={<AIReport />} /> */}
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/list/:recordId" element={<RecordDetailPage />} />
-          </Routes>
-          <ToastContainer position="top-center" autoClose={3000} />
+          <div className="max-w-[1080px] ml-[100px]">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login/success" element={<Home />} />
+              <Route path="/list" element={<List />} />
+              {/* <Route path="/ai-report" element={<AIReport />} /> */}
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/list/:recordId" element={<RecordDetailPage />} />
+            </Routes>
+            <ToastContainer position="top-center" autoClose={3000} />
+          </div>
         </div>
       </div>
     </div>
