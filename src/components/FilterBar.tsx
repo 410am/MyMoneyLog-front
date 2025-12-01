@@ -1,5 +1,5 @@
 // src/features/records/components/FilterBar.tsx
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CategoryOption } from "../pages/RecordListPage";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -54,6 +54,29 @@ export default function FilterBar({
 
   const [range, setRange] = useState<{ from?: string; to?: string }>({});
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [dateOpen, setDateOpen] = useState(false);
+
+  // 🔥 바깥 클릭 감지
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setDateOpen(false);
+      }
+    }
+
+    if (dateOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dateOpen]);
+
   const dummyCategories: CategoryOption[] = [
     { categoryId: 1, categoryName: "식비" },
     { categoryId: 2, categoryName: "카페/디저트" },
@@ -93,8 +116,6 @@ export default function FilterBar({
       size: value.size ?? 20, // size는 유지하거나 기본값 유지
     });
   };
-
-  const [dateOpen, setDateOpen] = useState(false);
 
   return (
     <div
@@ -139,7 +160,7 @@ export default function FilterBar({
       )}
 
       {/* 날짜 */}
-      <div className="relative">
+      <div className="relative" ref={wrapperRef}>
         <button
           onClick={() => setDateOpen(!dateOpen)}
           className="text-xl font-semibold text-slate-700 flex pt-[6px] pl-6 "

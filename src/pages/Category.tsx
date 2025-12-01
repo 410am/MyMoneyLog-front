@@ -25,115 +25,6 @@ export type Category = {
 };
 
 const Category = () => {
-  const dummyCategories = [
-    {
-      categoryId: 1,
-      userId: 1,
-      categoryName: "식비",
-      type: "EXPENSE",
-      default: true,
-    },
-    {
-      categoryId: 2,
-      userId: 1,
-      categoryName: "카페/디저트",
-      type: "EXPENSE",
-      default: true,
-    },
-    {
-      categoryId: 3,
-      userId: 1,
-      categoryName: "교통비",
-      type: "EXPENSE",
-      default: true,
-    },
-    {
-      categoryId: 4,
-      userId: 1,
-      categoryName: "쇼핑",
-      type: "EXPENSE",
-      default: false,
-    },
-    {
-      categoryId: 5,
-      userId: 1,
-      categoryName: "취미/여가",
-      type: "EXPENSE",
-      default: false,
-    },
-    {
-      categoryId: 6,
-      userId: 1,
-      categoryName: "건강/의료",
-      type: "EXPENSE",
-      default: false,
-    },
-    {
-      categoryId: 7,
-      userId: 1,
-      categoryName: "주거/월세",
-      type: "EXPENSE",
-      default: true,
-    },
-    {
-      categoryId: 8,
-      userId: 1,
-      categoryName: "통신비",
-      type: "EXPENSE",
-      default: true,
-    },
-    {
-      categoryId: 9,
-      userId: 1,
-      categoryName: "보험",
-      type: "EXPENSE",
-      default: false,
-    },
-    {
-      categoryId: 10,
-      userId: 1,
-      categoryName: "교육",
-      type: "EXPENSE",
-      default: false,
-    },
-
-    {
-      categoryId: 11,
-      userId: 1,
-      categoryName: "월급",
-      type: "INCOME",
-      default: true,
-    },
-    {
-      categoryId: 12,
-      userId: 1,
-      categoryName: "보너스",
-      type: "INCOME",
-      default: false,
-    },
-    {
-      categoryId: 13,
-      userId: 1,
-      categoryName: "용돈",
-      type: "INCOME",
-      default: false,
-    },
-    {
-      categoryId: 14,
-      userId: 1,
-      categoryName: "투자수익",
-      type: "INCOME",
-      default: false,
-    },
-    {
-      categoryId: 15,
-      userId: 1,
-      name: "기타수입",
-      type: "INCOME",
-      default: false,
-    },
-  ];
-
   const userId = authStore((state) => state.userId);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
 
@@ -180,10 +71,14 @@ const Category = () => {
     }
   };
 
-  const handleEditCategory = async () => {
+  const handleEditCategory = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      // 1️⃣ 서버에 수정 요청 보내기
-      const res = await updateCategory(editCategory);
+      const payload = {
+        ...editCategory,
+        userId: userId,
+      };
+      const res = await updateCategory(payload);
       console.log(res);
 
       // 2️⃣ 기존 리스트에서 해당 항목만 교체
@@ -228,8 +123,8 @@ const Category = () => {
   return (
     <div className="h-[500px]">
       <div className="pb-8 pt-3 grid grid-cols-2 gap-5">
-        {/* {categoryList.map((category) => { */}
-        {dummyCategories.map((category) => {
+        {/* {dummyCategories.map((category) => { */}
+        {categoryList.map((category) => {
           return (
             <div
               key={category.categoryId}
@@ -269,8 +164,7 @@ const Category = () => {
                   </Select>
                   <button
                     className="w-full flex justify-end pr-5"
-                    type="button"
-                    onClick={handleEditCategory}
+                    type="submit"
                   >
                     확인
                   </button>
@@ -294,9 +188,14 @@ const Category = () => {
                     <button
                       className=""
                       type="button"
-                      onClick={() => setEditCategory(category)}
+                      onClick={() =>
+                        setEditCategory({
+                          ...category,
+                          userId: category.userId ?? userId,
+                        })
+                      }
                     >
-                      {category["default"] === false && (
+                      {category.default === false && (
                         <EditIcon
                           fontSize="inherit"
                           className="text-gray-400"
@@ -310,7 +209,7 @@ const Category = () => {
                       }}
                       className="px-2"
                     >
-                      {category["default"] === false ? (
+                      {category.default === false ? (
                         <Delete fontSize="inherit" className="text-gray-400" />
                       ) : (
                         <div className="px-2"></div>

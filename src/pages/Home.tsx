@@ -19,9 +19,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="">
       {userId ? (
-        <div className="grid grid-row-2 px-36 mb-36">
+        <div className="grid grid-row-2 px-12 mb-36">
           <div className="outline outline-4 outline-red-700 h-[20vh]">
             {dummyMonthSummary.incomeTotal}
             {dummyMonthSummary.expenseTotal}

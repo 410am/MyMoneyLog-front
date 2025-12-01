@@ -174,12 +174,12 @@ export async function createCategory(params: Category) {
 }
 
 export async function updateCategory(params: Category) {
-  const res = await api.post(`category/${params.categoryId}`, params);
+  const res = await api.post(`/category/${params.categoryId}`, params);
   return res.data.data;
 }
 
 export async function deleteCategory(params: number) {
-  await api.delete(`category/${params}`);
+  await api.delete(`/category/${params}`);
 }
 
 export async function fetchUser() {

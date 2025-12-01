@@ -452,8 +452,8 @@ export default function RecordListPage() {
                 {now.getMonth() + 1}월의 수입
               </div>
               <div className="text-3xl font-semibold text-gray-400">
-                {/* {monthSummary?.incomeTotal.toLocaleString("ko-KR")}원 */}
-                2,341,560원
+                {monthSummary?.incomeTotal.toLocaleString("ko-KR")}원
+                {/* 2,341,560원 */}
               </div>
             </div>
             <div className="h-3/5 place-content-end pb-5">
@@ -461,8 +461,8 @@ export default function RecordListPage() {
                 {now.getMonth() + 1}월의 지출
               </div>
               <div className="text-6xl font-semibold text-slate-700">
-                {/* {monthSummary?.expenseTotal.toLocaleString("ko-KR")}원 */}
-                1,567,890원
+                {monthSummary?.expenseTotal.toLocaleString("ko-KR")}원
+                {/* 1,567,890원 */}
               </div>
             </div>
             {/* <div>이번 달 수입 수 : {monthSummary?.incomeCount}회</div>
@@ -471,7 +471,7 @@ export default function RecordListPage() {
           </div>
 
           <div className="relative w-full">
-            <div className="absolute h-full">
+            <div className="absolute h-full w-full justify-end pr-6">
               <FilterBar
                 value={filters}
                 onChange={update}
@@ -479,13 +479,16 @@ export default function RecordListPage() {
               />
             </div>
 
-            <div className="absolute pt-[93px] pl-[97px] h-full ">
-              <ConfirmModal
-                triggerLabel="수정"
-                title="카테고리"
-                component={<Category />}
-                cancelLabel="취소"
-              />
+            {/* <div className="absolute pt-[93px] pl-[130px] h-full "> */}
+            <div className="absolute w-1/3 flex h-1/3 mt-1">
+              <div className="ml-auto content-end mr-2">
+                <ConfirmModal
+                  triggerLabel="수정"
+                  title="카테고리"
+                  component={<Category />}
+                  cancelLabel="취소"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -505,11 +508,11 @@ export default function RecordListPage() {
       {err && <div className="text-red-500">에러: {err}</div>}
 
       <ul className="list-none pl-0">
-        {/* {list.length > 0 && ( */}
-        {dummyRecords.length > 0 && (
+        {/* {dummyRecords.length > 0 && ( */}
+        {list.length > 0 && (
           <>
-            {/* {list.map((r) => ( */}
-            {dummyRecords.map((r) => (
+            {/* {dummyRecords.map((r) => ( */}
+            {list.map((r) => (
               <li
                 role="button"
                 tabIndex={0}
