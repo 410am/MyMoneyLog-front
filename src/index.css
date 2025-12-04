@@ -59,6 +59,9 @@
 }
 
 @layer base {
+  #root {
+    @apply min-w-[1080px];
+  }
   * {
     @apply border-border;
   }

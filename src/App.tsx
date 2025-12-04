@@ -25,7 +25,7 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-w-[1080px] w-full">
+    <div className="">
       <div className="px-10 py-4  mx-auto ">
         <div className="">
           <div className="flex gap-36 mb-10 ">
