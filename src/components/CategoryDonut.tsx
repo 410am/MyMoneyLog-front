@@ -28,14 +28,14 @@ const CategoryDonut = ({ data }: { data: CategoryItem[] }) => {
     }));
 
   const topLegends = items.slice(0, 3);
-  const bottomLegends = items.slice(3).reverse();
+  const bottomLegends = items.slice(3, 6).reverse();
 
   return (
-    <div className=" py-5 pl-5 ">
-      <h2 className="text-lg font-semibold text-slate-900 mb-6">카테고리</h2>
+    <div className=" py-5 pl-5 w-full h-full ">
+      <h2 className="text-lg font-semibold text-slate-900 mb-4">카테고리</h2>
 
       {/* ⚡ 전체 레이아웃: 2x2 grid */}
-      <div className="grid grid-cols-[auto,1fr] grid-rows-[auto,auto] gap-4 items-center h-fit">
+      <div className="grid grid-cols-[auto,auto] grid-rows-[auto,1fr] gap-4 items-center h-fit">
         {/* 도넛: 왼쪽 세로 전체 차지 (row-span-2) */}
         <div className="row-span-2 flex justify-center ">
           <div className="w-40 h-40">
@@ -83,7 +83,7 @@ const CategoryDonut = ({ data }: { data: CategoryItem[] }) => {
         </div>
 
         {/* 오른쪽 아래: 나머지 범례들 → 가로 */}
-        <div className="flex flex-wrap gap-x-14 gap-y-2 ">
+        <div className="flex flex-wrap gap-x-14 gap-y-2 mt-6 ">
           {bottomLegends.map((item) => (
             <div
               key={item.categoryId}

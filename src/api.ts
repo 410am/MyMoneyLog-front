@@ -204,3 +204,11 @@ export async function logout() {
 export async function withdrawal() {
   await api.delete("/user/me");
 }
+
+// 요약카드, 대시보드
+export async function fetchDashboard(year: number, month: number) {
+  const res = await api.get("/dashboard", {
+    params: { year, month },
+  });
+  return res.data.data;
+}
