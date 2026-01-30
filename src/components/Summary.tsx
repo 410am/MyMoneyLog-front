@@ -24,7 +24,7 @@ const Summary = () => {
   }, []);
 
   return (
-    <div className="grid grid-row-2 mb-36">
+    <div className="grid grid-row-2">
       <div className=" h-[20vh] grid grid-cols-4 gap-3 my-3">
         <div className="rounded-xl bg-gradient-to-r to-[#6C95FF]  from-[#3D69DB] pt-10 pl-4">
           <div className="text-neutral-50 opacity-50 font-bold text-xl">

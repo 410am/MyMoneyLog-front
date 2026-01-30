@@ -83,7 +83,7 @@ const CategoryDonut = ({ data }: { data: CategoryItem[] }) => {
         </div>
 
         {/* 오른쪽 아래: 나머지 범례들 → 가로 */}
-        <div className="flex flex-wrap gap-x-14 gap-y-2 mt-6 ">
+        <div className="flex flex-wrap gap-x-14 gap-y-2 mt-6 col-span-2">
           {bottomLegends.map((item) => (
             <div
               key={item.categoryId}

@@ -495,14 +495,18 @@ export default function RecordListPage() {
       )}
 
       <div className="h-fit w-full">
-        <div className="w-fit">
-          <ConfirmModal
-            triggerLabel="기록 추가"
-            title=""
-            component={<RecordCreation onCreated={fetchData} />}
-            cancelLabel="취소"
-          />
-        </div>
+        {location.pathname === "/" ? (
+          <div className="h-4"></div>
+        ) : (
+          <div className="w-fit">
+            <ConfirmModal
+              triggerLabel="기록 추가"
+              title=""
+              component={<RecordCreation onCreated={fetchData} />}
+              cancelLabel="취소"
+            />
+          </div>
+        )}
       </div>
       {loading && <div>불러오는 중…</div>}
       {err && <div className="text-red-500">에러: {err}</div>}

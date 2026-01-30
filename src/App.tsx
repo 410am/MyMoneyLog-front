@@ -10,6 +10,7 @@ import {
 import Home from "./pages/Home";
 // import AIReport from "./pages/AIReport";
 import MyPage from "./pages/MyPage";
+import LoginPage from "./components/Login";
 import List from "./pages/RecordListPage";
 import { ToastContainer } from "react-toastify";
 import RecordDetailPage from "./pages/RecordDetailPage";
@@ -25,8 +26,10 @@ function App() {
   const navigate = useNavigate();
 
   return (
+    <div>
+    {userId ? (
     <div className="">
-      <div className="px-10 py-4  mx-auto ">
+      <div className="px-10 py-4 mx-auto max-w-[1200px]">
         <div className="">
           <div className="flex gap-36 mb-10 ">
             <div
@@ -57,7 +60,7 @@ function App() {
                   소비기록
                 </Link>
               </div>
-              {userId ? (
+             
                 <div className="ml-auto pt-4">
                   <Link to="/mypage">
                     <img
@@ -68,10 +71,10 @@ function App() {
                     {/* {nickname ?? ""} */}
                   </Link>
                 </div>
-              ) : null}
+             
             </nav>
           </div>
-          <div className="max-w-[1080px] ml-[100px]">
+          <div className="mx-auto w-full max-w-[1080px]">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login/success" element={<Home />} />
@@ -84,6 +87,7 @@ function App() {
           </div>
         </div>
       </div>
+    </div>) : <LoginPage />}
     </div>
   );
 }

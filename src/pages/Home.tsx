@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import LoginPage from "../components/Login";
-import { authStore } from "../store/AuthStore";
 import AIReport from "./AIReport";
 import Dashboard from "./Dashboard";
 import RecordListPage from "./RecordListPage";
@@ -8,20 +6,19 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForwardiOS";
 import Summary from "../components/Summary";
 
 const Home = () => {
-  const userId = authStore((state) => state.userId ?? "");
   const navigate = useNavigate();
 
   return (
-    <div>
-      {userId ? (
+    <div className="mb-40">
+     
         <div>
           <div>
             <Summary />
           </div>
-          <div className="border rounded-2xl shadow-xl my-3  h-[50vh] w-[150vh]">
+          <div className="border rounded-2xl shadow-xl my-3  h-[50vh] w-full">
             <Dashboard />
           </div>
-          <div className="flex h-[69vh] ">
+          <div className="flex h-[69vh]">
             <div className="border rounded-2xl shadow-xl m-3 w-1/2 py-10 px-6">
               <AIReport />
             </div>
@@ -39,9 +36,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <LoginPage />
-      )}
+     
     </div>
   );
 };
