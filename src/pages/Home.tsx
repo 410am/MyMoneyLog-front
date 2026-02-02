@@ -15,14 +15,14 @@ const Home = () => {
           <div>
             <Summary />
           </div>
-          <div className="border rounded-2xl shadow-xl my-3  h-[50vh] w-full">
+          <div className="border-[0.5px] border-gray-100/60 rounded-2xl shadow-xl my-3  h-[50vh] w-full bg-[#FCFCFC]">
             <Dashboard />
           </div>
           <div className="flex h-[69vh]">
-            <div className="border rounded-2xl shadow-xl m-3 w-1/2 py-10 px-6">
+            <div className="rounded-2xl shadow-xl m-3 w-1/2 py-10 px-6 bg-[#FCFCFC]">
               <AIReport />
             </div>
-            <div className="border rounded-2xl shadow-xl m-3 w-1/2 overflow-hidden py-10 pr-6">
+            <div className="rounded-2xl shadow-xl m-3 w-1/2 overflow-hidden py-10 pr-6 bg-[#FCFCFC]">
               <div className="flex px-4">
                 <h2 className="text-2xl pb-3 pl-5">최근 내역</h2>
                 <button

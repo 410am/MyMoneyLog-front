@@ -26,7 +26,7 @@ const Summary = () => {
   return (
     <div className="grid grid-row-2">
       <div className=" h-[20vh] grid grid-cols-4 gap-3 my-3">
-        <div className="rounded-xl bg-gradient-to-r to-[#6C95FF]  from-[#3D69DB] pt-10 pl-4">
+        <div className="rounded-xl bg-gradient-to-r to-[#6C95FF]  from-[#3D69DB] pt-10 pl-4 shadow-xl">
           <div className="text-neutral-50 opacity-50 font-bold text-xl">
             총 수입
           </div>
@@ -34,7 +34,7 @@ const Summary = () => {
             {summaryData.totalIncome.toLocaleString("ko-KR")} 원
           </div>
         </div>
-        <div className="bg-gradient-to-r from-[#DA1CC7]  to-[#EA45AB]  pt-10 pl-4 rounded-xl">
+        <div className="bg-gradient-to-r from-[#DA1CC7]  to-[#EA45AB]  pt-10 pl-4 rounded-xl shadow-xl">
           <div className="text-neutral-50 opacity-50 font-bold text-xl">
             총 지출
           </div>
@@ -42,7 +42,7 @@ const Summary = () => {
             {summaryData.totalExpense.toLocaleString("ko-KR")} 원
           </div>
         </div>
-        <div className="bg-gradient-to-r from-[#2EAF4A]  to-[#8DD234]  rounded-xl  pt-10 pl-4">
+        <div className="bg-gradient-to-r from-[#2EAF4A]  to-[#8DD234]  rounded-xl  pt-10 pl-4 shadow-xl">
           <div className="text-neutral-50 opacity-50 font-bold text-xl">
             총 잔액
           </div>
@@ -51,7 +51,7 @@ const Summary = () => {
           </div>
         </div>
         <div className="flex w-full gap-3">
-          <div className="bg-gradient-to-r from-[#FFA700]  to-[#FFC14E] pt-10 pl-3 w w-1/2 rounded-xl">
+          <div className="bg-gradient-to-r from-[#FFA700]  to-[#FFC14E] pt-10 pl-3 w w-1/2 rounded-xl shadow-xl">
             <div className="text-neutral-50 opacity-65 font-bold text-xl">
               수입
             </div>
@@ -59,7 +59,7 @@ const Summary = () => {
               {summaryData.incomeCount.toLocaleString("ko-KR")} 건
             </div>
           </div>
-          <div className="bg-gradient-to-r from-[#8555C1]  to-[#B469FF] pt-10 pl-3 w-1/2 rounded-xl">
+          <div className="bg-gradient-to-r from-[#8555C1]  to-[#B469FF] pt-10 pl-3 w-1/2 rounded-xl shadow-xl">
             <div className="text-neutral-50 opacity-50 font-bold text-xl">
               지출
             </div>

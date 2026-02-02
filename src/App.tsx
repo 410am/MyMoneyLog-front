@@ -26,7 +26,7 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="bg-[#FBFBFB]">
     {userId ? (
     <div className="">
       <div className="px-10 py-4 mx-auto max-w-[1200px]">
