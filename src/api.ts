@@ -187,13 +187,8 @@ export async function fetchUser() {
   return res.data.data;
 }
 
-export async function updateUser(newUser: {
-  userId: number;
-  email: string;
-  nickname: string;
-  picture: string;
-}) {
-  const res = await api.post("/user/me", newUser);
+export async function updateUser(userId: number, formData: FormData) {
+  const res = await api.post("/user/me", formData, { withCredentials: true });
   return res.data.data;
 }
 
