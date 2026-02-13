@@ -14,8 +14,10 @@ type ConfirmModalProps = {
   triggerLabel: string;
   title: string;
   description?: string;
-  component: React.ReactNode;
+  component?: React.ReactNode;
   cancelLabel?: string;
+  confirmLabel?: string;
+  onConfirm?: () => void | Promise<void>;
 };
 
 export function ConfirmModal({
@@ -23,7 +25,9 @@ export function ConfirmModal({
   title,
   description,
   component,
+  confirmLabel = "확인",
   cancelLabel = "닫기",
+  onConfirm,
 }: ConfirmModalProps) {
   return (
     <Dialog>
@@ -39,6 +43,14 @@ export function ConfirmModal({
         <div className="overflow-scroll scrollbar-hide">{component}</div>
 
         <DialogFooter>
+          {/* 확인: 실행 후 닫기 */}
+          <DialogClose asChild>
+            <Button variant="outline" onClick={onConfirm}>
+              {confirmLabel}
+            </Button>
+          </DialogClose>
+
+          {/* 취소: 그냥 닫기 */}
           <DialogClose asChild>
             <Button variant="outline">{cancelLabel}</Button>
           </DialogClose>

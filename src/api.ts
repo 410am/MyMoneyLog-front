@@ -112,7 +112,7 @@ api.interceptors.response.use(
               "Cache-Control": "no-cache",
               Pragma: "no-cache",
             },
-          }
+          },
         );
 
         // 백엔드 응답: { accessToken: "..." }
@@ -121,7 +121,7 @@ api.interceptors.response.use(
         localStorage.setItem("accessToken", newAccessToken);
         console.log(
           "✅ 로컬스토리지 저장 완료:",
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken"),
         );
 
         // Authorization 헤더 갱신 후 재요청
@@ -135,7 +135,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export async function fetchRecords(params: ListFilters) {
@@ -206,4 +206,10 @@ export async function fetchDashboard(year: number, month: number) {
     params: { year, month },
   });
   return res.data.data;
+}
+
+export async function getMonthSummary() {
+  const res = await api.get("/ai-reports/current/summary");
+
+  return res.data;
 }
