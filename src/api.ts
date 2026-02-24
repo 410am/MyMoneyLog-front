@@ -213,3 +213,8 @@ export async function getMonthSummary() {
 
   return res.data;
 }
+
+export async function postAiReportCurrent() {
+  const res = await api.post("/ai-reports/current");
+  return res.data;
+}

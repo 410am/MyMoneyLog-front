@@ -5,7 +5,7 @@ import RecordListPage from "./RecordListPage";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForwardiOS";
 import Summary from "../components/Summary";
 import { useEffect } from "react";
-import { getMonthSummary } from "../api";
+import { getMonthSummary, postAiReportCurrent } from "../api";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -13,6 +13,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       const res = await getMonthSummary();
+      console.log(res);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const res = await postAiReportCurrent();
       console.log(res);
     })();
   }, []);
