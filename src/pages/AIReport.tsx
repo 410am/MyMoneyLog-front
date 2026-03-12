@@ -32,7 +32,7 @@
 
 // export default AIReport;
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { postAiReportCurrent } from "../api";
 import CheckIcon from "@mui/icons-material/Check";
 
@@ -54,14 +54,12 @@ const AIReport = () => {
   // });
 
   const [aiReport, setAiReport] = useState({
-    highlights: ["총 지출: 0원", "총 수입: 0원", "Top 카테고리: 없음"],
-    oneLiner: "이번 달 데이터가 쌓이면 패턴을 더 잘 보여줄 수 있어.",
+    headline: ["이번 달 데이터가 쌓이면 패턴을 더 잘 보여줄 수 있어."],
     tips: [
       "한 달치 데이터가 최소 10건 이상 쌓아보세요.",
       "카테고리를 '미분류' 없이 넣어두면 분석이 더 좋아져요",
       "지출 메모를 남겨보세요.",
     ],
-    title: "2월 소비 리포트",
   });
 
   // useEffect(() => {
@@ -72,7 +70,12 @@ const AIReport = () => {
   //   })();
   // }, []);
 
+  // 두 번 불러오기 방지
+  const calledRef = useRef(false);
+
   useEffect(() => {
+    if (calledRef.current) return;
+    calledRef.current = true;
     (async () => {
       const res = await postAiReportCurrent();
       setAiReport(res);
@@ -80,19 +83,21 @@ const AIReport = () => {
     })();
   }, []);
 
+  const now = new Date();
+
   return (
     <div>
-      <div className="text-2xl mb-14 ml-3 mt-3">{aiReport.title}</div>
-      <div className="w-3/4">
-        <div className="border-l-4 border-[#8556C1] pl-4 ml-5 text-xl font-semibold mb-12">
-          {aiReport.oneLiner}
+      <div className="text-2xl mb-14 ml-3 mt-3">{`${now.getMonth() + 1}월 소비 리포트`}</div>
+      <div className="w-5/6 pt-3 pl-3">
+        <div className="border-l-4  border-[#8556C1] pl-4 ml-5 text-xl font-semibold mb-12">
+          {aiReport.headline}
         </div>
-        <div>
-          <div className="flex ml-5 mb-12">
+        <div className="pt-7 pl-8">
+          <div className="flex ml-5 mb-14">
             <CheckIcon className="text-[#8556C1] mr-3 " fontSize="large" />
             <div className="font-semibold">{aiReport.tips[0]}</div>
           </div>
-          <div className="flex ml-5 mb-12">
+          <div className="flex ml-5 mb-14">
             <CheckIcon className="text-[#8556C1] mr-3" fontSize="large" />
             <div className="font-semibold">{aiReport.tips[1]}</div>
           </div>
