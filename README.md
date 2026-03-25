@@ -27,7 +27,7 @@
 
 ## 👁 PRIVIEW
 
-![Image](https://github.com/user-attachments/assets/7c761c71-7de3-434d-b062-f4e0cf8175b5)
+![Image](https://github.com/user-attachments/assets/620032c2-3809-4cba-8b5d-3d77a7159b31)
 
 <br>
 <br>
