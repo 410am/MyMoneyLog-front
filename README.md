@@ -27,7 +27,6 @@
 
 ## 👁 PRIVIEW
 
-<br>
 ![Image](https://github.com/user-attachments/assets/7c761c71-7de3-434d-b062-f4e0cf8175b5)
 
 <br>
@@ -50,3 +49,5 @@ Spring Boot 기반 서버에서 JWT 인증 구조를 직접 구축했습니다.
 
 또한 OpenAI API를 활용하여
 사용자의 소비 데이터를 자연어 인사이트로 변환하는 기능을 구현했습니다.
+<br>
+<br>
