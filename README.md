@@ -4,29 +4,26 @@
 ## 🛠 STACK
 
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black">
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black">  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white">
 <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white">
 <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat&logo=tailwindcss&logoColor=white">
 <img src="https://img.shields.io/badge/Zustand-000000?style=flat">
 
-<br>
 
-<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=springboot&logoColor=white">
-<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat&logo=springsecurity&logoColor=white">
+
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=springboot&logoColor=white">  <img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat&logo=springsecurity&logoColor=white">
 <img src="https://img.shields.io/badge/JPA(Hibernate)-59666C?style=flat">
 <img src="https://img.shields.io/badge/QueryDSL-000000?style=flat">
 
-<br>
 
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white">
-<img src="https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white">
+
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white">  <img src="https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white">
 <img src="https://img.shields.io/badge/OAuth2(Google)-4285F4?style=flat&logo=google&logoColor=white">
 
-<br>
 
-<img src="https://img.shields.io/badge/OpenAI-412991?style=flat">
-<img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white">
+
+<img src="https://img.shields.io/badge/OpenAI-412991?style=flat">  <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white">
+<br>
 <br>
 
 ##  ⭐ 기능
